@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alpine-app
+  namespace: argocd
+  commonAnnotations:
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/coutug/alpine:~0
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: alpine
+  source:
+    repoURL: https://github.com/coutug/argocd.git
+    targetRevision: HEAD
+    path: alpine/app1
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
