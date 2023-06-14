@@ -17,7 +17,7 @@ spec:
     namespace: alpine
   source:
     repoURL: https://github.com/coutug/argocd.git
-    targetRevision: HEAD
+    targetRevision: main
     path: alpine/app1
   syncPolicy:
     syncOptions:
