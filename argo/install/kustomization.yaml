@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: argocd
 resources:
   - namespace.yaml
+  - repo-sealed-secret.yaml
   - install-argo.yaml
   - install-image-updater.yaml

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: substreams-sink-prometheus-configmap
+  namespace: substreams-sink-prometheus
+data:
+  ARGS: |
+    run
+    -e
+    https://eos.firehose.eosnation.io:9001
+    https://github.com/pinax-network/substreams/releases/download/eosmechanics-v0.3.6/eosmechanics-v0.3.6.spkg
+    prom_out
+    -s
+    -1000
+    -p
+    9102
+    -a
+    0.0.0.0
+    --cursor-file
+    eosmechanics.lock
+    --metrics-disabled

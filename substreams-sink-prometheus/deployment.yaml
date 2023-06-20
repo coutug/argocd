@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: substreams-sink-prometheus-deployment
+  namespace: substreams-sink-prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: substreams-sink-prometheus
+  template:
+    metadata:
+      labels:
+        app: substreams-sink-prometheus
+    spec:
+      # volumes:
+      # - name: token-volume
+      #   secret:
+      #     secretName: api-token
+      containers:
+      - name: substreams-sink-prometheus-container
+        image: ghcr.io/coutug/ssp:1.0
+        # Volume
+        # volumeMounts:
+        # - name: token-volume
+        #   readOnly: true
+        #   mountPath: "etc/token-volume"
+        # Environment
+        env:
+        - name: SUBSTREAMS_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: api-token
+              key: token
+        args:
+          [
+            "run",
+            "https://github.com/pinax-network/substreams/releases/download/eosmechanics-v0.3.6/eosmechanics-v0.3.6.spkg",
+            "prom_out",
+            "-e",
+            "https://eos.firehose.eosnation.io:9001",
+            "--verbose",
+            "-s",
+            "-1",
+            "--address",
+            "0.0.0.0"
+          ]
+        ports:
+        - containerPort: 9102
