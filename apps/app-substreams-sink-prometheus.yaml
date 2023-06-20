@@ -16,7 +16,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: substreams-sink-prometheus
   source:
-    repoURL: https://github.com/coutug/argocd.git
+    repoURL: git@github.com:coutug/argocd.git
     targetRevision: main
     path: substreams-sink-prometheus
   syncPolicy:
